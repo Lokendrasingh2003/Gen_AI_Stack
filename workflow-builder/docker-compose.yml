@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: wf_postgres
+    environment:
+      POSTGRES_USER: wfuser
+      POSTGRES_PASSWORD: wfpass
+      POSTGRES_DB: wfdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: wf_chroma
+    ports:
+      - "8001:8000"
+    volumes:
+      - chromadata:/chroma/chroma
+
+  backend:
+    build: ./backend
+    container_name: wf_backend
+    environment:
+      DATABASE_URL: postgresql+psycopg2://wfuser:wfpass@postgres:5432/wfdb
+      CHROMA_HOST: chromadb
+      CHROMA_PORT: 8000
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - chromadb
+
+  frontend:
+    build: ./frontend
+    container_name: wf_frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+  chromadata:
