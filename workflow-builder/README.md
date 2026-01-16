@@ -8,14 +8,15 @@ A no-code / low-code platform to visually build and execute AI-powered workflows
 ## 🚀 Run with Docker
 
 ### 1️⃣ Create `.env` file in root
-OPENAI_API_KEY=your_openai_key_here
-GEMINI_API_KEY=your_gemini_key_here # optional
-SERPAPI_API_KEY=your_serpapi_key_here # optional
+
+- OPENAI_API_KEY=your_openai_key_here
+- GEMINI_API_KEY=your_gemini_key_here # optional
+- SERPAPI_API_KEY=your_serpapi_key_here # optional
 
 
 ### 2️⃣ Start the application
 
-  docker-compose up --build
+- docker-compose up --build
 
 
 ---
@@ -39,7 +40,7 @@ SERPAPI_API_KEY=your_serpapi_key_here # optional
 
 ## 🔁 Workflow Execution
 
-  User Query → (Optional) Knowledge Base → LLM Engine → Output
+- User Query → (Optional) Knowledge Base → LLM Engine → Output
 
 
 ---
